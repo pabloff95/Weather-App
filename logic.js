@@ -1,10 +1,14 @@
-window.addEventListener("load", function(){
+window.addEventListener("load", async function(){
     // Prevent form from submitting on "enter" key pressed
     document.getElementById("weatherForm").addEventListener("keypress", function(event){
         if (event.key === "Enter"){
             event.preventDefault();
         }        
     });
+
+    // Control the background img to be displayed according to the town selected
+    let rightContainer = document.getElementById("weather-results");
+    rightContainer.style.backgroundImage = "url('pictures/main-background.jpg')";
 
     // Search button: print weather data of searched city
     document.getElementById("search").addEventListener("click", async function(event){  
@@ -23,11 +27,13 @@ window.addEventListener("load", function(){
             const MAX_TEMPERATURE = parseFloat((data['main'].temp_max) -  273.15).toFixed(2);
             const MIN_TEMPERATURE = parseFloat((data['main'].temp_min) -  273.15).toFixed(2);
             // Display data in the screen
-            document.getElementById("weahter-results").innerHTML = displayData(city, ICON, MAIN, description, MIN_TEMPERATURE, TEMPERATURE, MAX_TEMPERATURE, HUMIDITY);
+            rightContainer.innerHTML = displayMainData(city, ICON, MAIN, TEMPERATURE);
+            document.getElementById("weather-information").innerHTML = displayDataDetails(description, MIN_TEMPERATURE, TEMPERATURE, MAX_TEMPERATURE, HUMIDITY);
         } catch (error) {
-            document.getElementById("weahter-results").innerHTML = `<h3>'${city}' not found in database</h3>`;
-        }
-        
+            document.getElementById("weather-information").innerHTML = `<h3>'${city}' not found in database</h3>`;
+            rightContainer.innerHTML = "";
+            console.log(error);
+        }        
         // Reset form
         document.getElementById("location").value = "";
     })    
@@ -85,24 +91,58 @@ async function getWeatherData(city){
 }
 
 
-// Function to display all the data obtained from APIs --> display it in HTML elements
-function displayData(city, icon, main, description, min, temperature, max, humidity){
+// Function to display all the main data obtained from APIs --> display it in HTML elements
+function displayMainData(city, icon, main, temperature){
+    // Get date format as: dd/month/yyyy
+    let date = new Date();
+    let month = date.getMonth();
+    let monthNames =["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep", "Oct","Nov","Dec"];
+    month = monthNames[month];
+    let currentDate = `${date.getDate()}/${month}/${date.getFullYear()}`;
+
+    // Return information to display
+    return `
+        <div id='wheather-results-information'>
+            <p id='temperature-title'>${Math.round(temperature)}ºC</p>
+            <div id='town-date'>
+                <p class='title town'>${city.toUpperCase()}</p>
+                <p id='date'>${currentDate}</p>
+            </div>
+            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${main}" id='weather-icon'><br>            
+        </div>
+    `;
+}
+
+// Function to display all the data details obtained from APIs --> display it in HTML elements
+function displayDataDetails(description, min, temperature, max, humidity){
     // Calculate number of pictures for humidity (1,2,3,4), according to percentage. Prepare the pictures HTML elements
     const HUMIDITY_LEVEL = Math.ceil(parseInt(humidity)/25);
     let humidityPictures ="";
     for (let i = 0; i < HUMIDITY_LEVEL; i++){
-        humidityPictures += "<img src='humidity.png' class='humidity-picture'>";
+        humidityPictures += "<img src='pictures/humidity.png' class='humidity-picture'>";
     }
-
+    // Return information to display
     return `
-            <h2>${city.toUpperCase()}</h2>
-            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${main}" id='weather-icon'><br>
-            <p>${description}</p>
-            <p><span><b>Min temperature: </b><span>${min}ºC</p>
-            <p><span><b>Average temperature: </b><span>${temperature}ºC</p>
-            <p><span><b>Max temperature: </b><span>${max}ºC</p>
-            <p><span><b>Humidity: </b><span>${humidity}%</p>
-            <div id='humidity-container'>${humidityPictures}</div>
+            <p class='title'>Weather Details</p>
+            <div id='details-description'>
+                <p class='subtitle'>${description}</p>
+                <div class='weather-description-item'>
+                    <p>Min temperature</p>
+                    <p>${min}ºC</p>
+                </div>
+                <div class='weather-description-item'>
+                    <p>Average temperature</p>
+                    <p>${temperature}ºC</p>
+                </div>
+                <div class='weather-description-item'>
+                    <p>Max temperature</p>
+                    <p>${max}ºC</p>
+                </div>
+                <div class='weather-description-item'>
+                    <p>Humidity</p>
+                    <p>${humidity}%</p>
+                </div></br>
+                <div id='humidity-container'>${humidityPictures}</div>
+            </div>
     `;
 }
-

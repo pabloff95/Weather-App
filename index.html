@@ -9,12 +9,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Weather App</h1>
-    <form id="weatherForm">
-        <label for="location">Enter location</label><br>
-        <input type="text" id="location" placeholder="Ex.: Lodon"><br>
-        <button type="button"  id="search">SEARCH</button>
-    </form>
-    <div id="weahter-results"></div>
+    <div id="left-container">
+        <div id="form-container">
+            <p class="title">Weather App</p>
+            <form id="weatherForm">
+                <input type="text" id="location" placeholder="Enter location"><br><br>
+                <button type="button"  id="search">SEARCH</button>
+            </form>
+            <br>
+            <div id="division-line"></div>
+        </div>
+        <div id="weather-information">
+            <p>Display the weather of any town!</p>
+        </div>
+    </div>    
+    <div id="weather-results"></div>
 </body>
 </html>
