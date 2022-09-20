@@ -23,7 +23,7 @@ body{
 /*---------Left section----*/
 #left-container{
     display: grid;
-    grid-template-rows: 40% 60%;
+    grid-template-rows: 40% 5% 55%;
     background-color: var(--main-background);
     color: var(--contrast-main);
 }
@@ -82,9 +82,37 @@ body{
     background-color: var(--contrast-main);
 }
 
+/*---------Next days buttons section----*/
+#next-days-container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;    
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 7.5%;
+    padding-right: 7.5%;
+}
+.next-day-button{
+    min-width: 15%;
+    padding: 2.5%;
+    background-color: var(--contrast-focus);
+    border: none;
+    border-radius: 5px;
+    font-size: var(--font-size-normal);
+    color: var(--contrast-main);
+}
+.next-day-button:hover{
+    cursor: pointer;
+    transform: scale(.95);
+    background-color: var(--contrast-focus-hover);   
+}
+
     /*---------Weather information section----*/
 #weather-information{
-    padding: 7.5%;
+    padding-bottom: 7.5%;
+    padding-right: 7.5%;
+    padding-left: 7.5%;
+
 }
 #weather-information .title{
     margin-left: 0;
