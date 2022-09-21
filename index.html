@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <script src="logic.js"></script>
+    <script src="events.js"  type="module"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="left-container">
         <div id="form-container">
             <p class="title">Weather App</p>
-            <form id="weatherForm">
+            <form id="weatherForm" autocomplete="off">
                 <input type="text" id="location" placeholder="Enter location"><br><br>
                 <button type="button"  id="search">SEARCH</button>
             </form>
@@ -27,7 +27,7 @@
             <button class="next-day-button" id="nextDay5"></button>
         </div>
         <div id="weather-information">
-            <p>Display the weather of any town!</p>
+            <h3>Display the weather of any town!</h3>
         </div>
     </div>    
     <div id="weather-results"></div>
