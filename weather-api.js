@@ -74,7 +74,7 @@ async function retrieve5DaysData(url){
 // ----------------------- FUNCTIONS TO OBTAIN DATA FROM QUERIES TO APIs
 // Function to gather the data regarding to the CURRENT DAY
 async function getWeatherData(city){
-    const API_KEY = "5a590164a400ad0b07b8d70c8f5ef674"; // OpenWeather API user key
+    const API_KEY = ""; // [INTRODUCE] OpenWeather API user key
     let limit = "1"; // Number of results returned per query (ex. multiple cities with similar names)
 
     // Do query 1: returns longitude and latitude of desired city
@@ -90,7 +90,7 @@ async function getWeatherData(city){
 
 // Function to gather the data regarding to the a FUTURE 5 DAYS
 async function getWeather5NextDays(city){
-    const API_KEY = "5a590164a400ad0b07b8d70c8f5ef674"; // OpenWeather API user key
+    const API_KEY = ""; // [INTRODUCE] OpenWeather API user key
 
     // Do query 1: get longitude and latitude of desired city
     let urlCoordinates = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + API_KEY;
